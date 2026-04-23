@@ -17,8 +17,6 @@ function Comment({
   const [isEditing, setIsEditing] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
 
-  const [editText, setEditText] = useState(content);
-
   const isCurrentUser = user.username === currentUser.username;
 
   return (
@@ -55,21 +53,16 @@ function Comment({
           </div>
 
           {isEditing ? (
-            <>
-              <textarea
-                value={editText}
-                onChange={(e) => setEditText(e.target.value)}
-              />
-
-              <button
-                onClick={() => {
-                  updateComment(comment.id, editText);
-                  setIsEditing(false);
-                }}
-              >
-                UPDATE
-              </button>
-            </>
+            <CommentInput
+              key={comment.id}
+              currentUser={currentUser}
+              initialValue={content}
+              buttonLabel="UPDATE"
+              onSubmit={(text) => {
+                updateComment(comment.id, text);
+                setIsEditing(false);
+              }}
+            />
           ) : (
             <p>
               {comment.replyingTo && (

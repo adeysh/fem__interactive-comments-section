@@ -1,17 +1,17 @@
 import { useState } from "react";
 
-function CommentInput({ currentUser, addComment, onSubmit }) {
-  const [text, setText] = useState("");
+function CommentInput({
+  currentUser,
+  onSubmit,
+  initialValue = "",
+  buttonLabel = "SEND",
+}) {
+  const [text, setText] = useState(initialValue);
 
   const handleSubmit = () => {
     if (!text.trim()) return;
 
-    if (onSubmit) {
-      onSubmit(text); // reply
-    } else {
-      addComment(text); // new comment
-    }
-
+    onSubmit(text);
     setText("");
   };
 
@@ -23,16 +23,17 @@ function CommentInput({ currentUser, addComment, onSubmit }) {
       />
 
       <textarea
+        autoFocus
         value={text}
         onChange={(e) => setText(e.target.value)}
-        placeholder="Add a comment..."
+        placeholder={buttonLabel === "UPDATE" ? "" : "Add a comment..."}
       />
 
       <button
         onClick={handleSubmit}
         disabled={!text.trim()}
       >
-        SEND
+        {buttonLabel}
       </button>
     </div>
   );

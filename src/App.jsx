@@ -34,6 +34,7 @@ function App() {
       score: 0,
       replyingTo,
       user: data.currentUser,
+      replies: [],
     };
 
     const updateTree = (comments) => {
@@ -135,7 +136,7 @@ function App() {
 
       <CommentInput
         currentUser={data.currentUser}
-        addComment={addComment}
+        onSubmit={addComment}
       />
     </main>
   );
