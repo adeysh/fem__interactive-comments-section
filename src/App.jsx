@@ -1,121 +1,144 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import { useState } from "react";
+import { initialData } from "./data/data";
+import CommentList from "./components/CommentList";
+import CommentInput from "./components/CommentInput";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [data, setData] = useState(initialData);
+
+  const addComment = (text) => {
+    if (!text.trim()) return;
+
+    const newComment = {
+      id: Date.now(), // simple unique ID
+      content: text,
+      createdAt: "just now",
+      score: 0,
+      user: data.currentUser,
+      replies: [],
+    };
+
+    setData((prev) => ({
+      ...prev,
+      comments: [...prev.comments, newComment],
+    }));
+  };
+
+  const addReply = (parentId, text, replyingTo) => {
+    if (!text.trim()) return;
+
+    const newReply = {
+      id: Date.now(),
+      content: text,
+      createdAt: "just now",
+      score: 0,
+      replyingTo,
+      user: data.currentUser,
+    };
+
+    const updateTree = (comments) => {
+      return comments.map((comment) => {
+        if (comment.id === parentId) {
+          return {
+            ...comment,
+            replies: [...(comment.replies || []), newReply],
+          };
+        }
+
+        return {
+          ...comment,
+          replies: updateTree(comment.replies || []),
+        };
+      });
+    };
+
+    setData((prev) => ({
+      ...prev,
+      comments: updateTree(prev.comments),
+    }));
+  };
+
+  const updateScore = (id, delta) => {
+    const updateTree = (comments) => {
+      return comments.map((comment) => {
+        if (comment.id === id) {
+          return {
+            ...comment,
+            score: comment.score + delta,
+          };
+        }
+
+        return {
+          ...comment,
+          replies: updateTree(comment.replies || []),
+        };
+      });
+    };
+
+    setData((prev) => ({
+      ...prev,
+      comments: updateTree(prev.comments),
+    }));
+  };
+
+  const updateComment = (id, newContent) => {
+    if (!newContent.trim()) return;
+
+    const updateTree = (comments) => {
+      return comments.map((comment) => {
+        if (comment.id === id) {
+          return {
+            ...comment,
+            content: newContent,
+          };
+        }
+
+        return {
+          ...comment,
+          replies: updateTree(comment.replies || []),
+        };
+      });
+    };
+
+    setData((prev) => ({
+      ...prev,
+      comments: updateTree(prev.comments),
+    }));
+  };
+
+  const deleteComment = (id) => {
+    const deleteFromTree = (comments) => {
+      return comments
+        .filter((comment) => comment.id !== id) // remove match
+        .map((comment) => ({
+          ...comment,
+          replies: deleteFromTree(comment.replies || []),
+        }));
+    };
+
+    setData((prev) => ({
+      ...prev,
+      comments: deleteFromTree(prev.comments),
+    }));
+  };
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+    <main>
+      <CommentList
+        comments={data.comments}
+        currentUser={data.currentUser}
+        addReply={addReply}
+        updateScore={updateScore}
+        updateComment={updateComment}
+        deleteComment={deleteComment}
+      />
 
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+      <CommentInput
+        currentUser={data.currentUser}
+        addComment={addComment}
+      />
+    </main>
+  );
 }
 
-export default App
+export default App;

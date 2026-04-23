@@ -27,7 +27,7 @@ Your users should be able to:
 - **Bonus**: If you're building a purely front-end project, use `localStorage` to save the current state in the browser that persists when the browser is refreshed.
 - **Bonus**: Instead of using the `createdAt` strings from the `data.json` file, try using timestamps and dynamically track the time since the comment or reply was posted.
 
-### Want some support on the challenge? 
+### Want some support on the challenge?
 
 [Join our community](https://www.frontendmentor.io/community) and ask questions in the **#help** channel.
 
@@ -60,7 +60,7 @@ We've included two files to help you if you're using AI coding assistants (like 
 
 **How to use them:** You don't need to do anything! These files are automatically detected by most AI coding tools. The AI will read them and adjust its behavior to be a better learning partner—guiding you toward solutions rather than just giving you the answers.
 
-**Note:** These files are designed to help you *learn*, not to do the work for you. The AI is instructed to ask questions, give hints, and explain concepts rather than writing complete solutions.
+**Note:** These files are designed to help you _learn_, not to do the work for you. The AI is instructed to ask questions, give hints, and explain concepts rather than writing complete solutions.
 
 ## Building your project
 
