@@ -1,10 +1,26 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { initialData } from "./data/data";
 import CommentList from "./components/CommentList";
 import CommentInput from "./components/CommentInput";
 
 function App() {
-  const [data, setData] = useState(initialData);
+  const [data, setData] = useState(() => {
+    try {
+      const stored = localStorage.getItem("comments-app");
+      return stored ? JSON.parse(stored) : initialData;
+    } catch (err) {
+      console.error("Failed to parse localStorage", err);
+      return initialData;
+    }
+  });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem("comments-app", JSON.stringify(data));
+    } catch (err) {
+      console.error("Storage failed", err);
+    }
+  }, [data]);
 
   const addComment = (text) => {
     if (!text.trim()) return;
