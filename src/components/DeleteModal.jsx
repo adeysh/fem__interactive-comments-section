@@ -9,8 +9,18 @@ function DeleteModal({ onCancel, onConfirm }) {
         </p>
 
         <div className="modal-actions">
-          <button onClick={onCancel}>NO, CANCEL</button>
-          <button onClick={onConfirm}>YES, DELETE</button>
+          <button
+            className="modal-cancel-btn"
+            onClick={onCancel}
+          >
+            NO, CANCEL
+          </button>
+          <button
+            className="modal-delete-btn"
+            onClick={onConfirm}
+          >
+            YES, DELETE
+          </button>
         </div>
       </div>
     </div>

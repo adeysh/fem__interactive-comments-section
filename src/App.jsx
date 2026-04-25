@@ -140,7 +140,7 @@ function App() {
   };
 
   return (
-    <main>
+    <main className="app">
       <CommentList
         comments={data.comments}
         currentUser={data.currentUser}

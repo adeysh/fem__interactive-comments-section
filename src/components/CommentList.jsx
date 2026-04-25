@@ -9,7 +9,7 @@ function CommentList({
   deleteComment,
 }) {
   return (
-    <div>
+    <div className="comment-list">
       {comments.map((comment) => (
         <Comment
           key={comment.id}

@@ -17,24 +17,30 @@ function CommentInput({
 
   return (
     <div className="comment-input">
-      <img
-        src={currentUser.image.png}
-        alt={currentUser.username}
-      />
-
       <textarea
         autoFocus
+        rows="8"
         value={text}
         onChange={(e) => setText(e.target.value)}
         placeholder={buttonLabel === "UPDATE" ? "" : "Add a comment..."}
+        className="input"
       />
 
-      <button
-        onClick={handleSubmit}
-        disabled={!text.trim()}
-      >
-        {buttonLabel}
-      </button>
+      <div className="actions">
+        <img
+          src={currentUser.image.png}
+          alt={currentUser.username}
+          className="current-user"
+        />
+
+        <button
+          onClick={handleSubmit}
+          disabled={!text.trim()}
+          className="submit-btn"
+        >
+          {buttonLabel}
+        </button>
+      </div>
     </div>
   );
 }
