@@ -2,6 +2,7 @@ import { useState } from "react";
 import ReplyList from "./ReplyList";
 import CommentInput from "./CommentInput";
 import DeleteModal from "./DeleteModal";
+import { timeAgo } from "../utils/timeAgo";
 
 function Comment({
   comment,
@@ -31,7 +32,7 @@ function Comment({
 
           {isCurrentUser && <span className="you-badge">YOU</span>}
 
-          <span className="created-at">{createdAt}</span>
+          <span className="created-at">{timeAgo(createdAt)}</span>
         </div>
 
         {isEditing ? (

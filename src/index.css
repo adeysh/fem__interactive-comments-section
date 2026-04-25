@@ -50,6 +50,11 @@ button {
   cursor: pointer;
 }
 
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+}
+
 textarea:focus {
   outline: none;
   border: 1px solid var(--purple-600);
@@ -126,14 +131,13 @@ textarea:focus {
 .vote > span {
   padding: 8px;
   font-weight: var(--semi-bold);
-}
-
-.vote > button > svg {
   color: var(--purple-200);
 }
 
 .vote > button > svg:hover,
-.vote > button > svg:active {
+.vote > button > svg:active,
+.vote > button:hover,
+.vote > button:active {
   color: var(--purple-600);
   transition: color 0.2s ease;
 }
@@ -155,6 +159,7 @@ textarea:focus {
   display: flex;
   align-items: center;
   gap: 8px;
+  cursor: pointer;
 }
 
 .action-btn:hover {
@@ -214,7 +219,6 @@ textarea:focus {
   color: var(--grey-800);
   border: 1px solid var(--grey-100);
   border-radius: 8px;
-  font-family: "Rubik", sans-serif;
 }
 
 .input::placeholder {

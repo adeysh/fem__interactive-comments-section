@@ -28,7 +28,7 @@ function App() {
     const newComment = {
       id: Date.now(), // simple unique ID
       content: text,
-      createdAt: "just now",
+      createdAt: Date.now(),
       score: 0,
       user: data.currentUser,
       replies: [],
@@ -46,7 +46,7 @@ function App() {
     const newReply = {
       id: Date.now(),
       content: text,
-      createdAt: "just now",
+      createdAt: Date.now(),
       score: 0,
       replyingTo,
       user: data.currentUser,
