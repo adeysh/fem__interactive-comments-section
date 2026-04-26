@@ -1,7 +1,7 @@
 import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import App from "../App";
-/*global test,expect, a*/
+/*global test,expect */
 
 // core user flow
 
@@ -136,7 +136,7 @@ test("cancel delete does not remove comment", async () => {
   expect(screen.getAllByText(/impressive/i).length).toBeGreaterThan(0);
 });
 
-// ui behaviour
+// ui behavior
 
 test("reply input toggles on click", async () => {
   render(<App />);
@@ -168,4 +168,18 @@ test("loads comments from localStorage", async () => {
   render(<App />);
 
   expect(screen.getByText("Stored")).toBeInTheDocument();
+});
+
+test("comments are ordered by score", () => {
+  render(<App />);
+
+  const comments = screen.getAllByTestId(/comment-/i);
+
+  const scores = comments.map((comment) =>
+    Number(within(comment).getByText(/\d+/).textContent),
+  );
+
+  const sorted = [...scores].sort((a, b) => b - a);
+
+  expect(scores).toEqual(sorted);
 });

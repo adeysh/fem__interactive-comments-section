@@ -3,10 +3,11 @@ import Comment from "./Comment";
 
 function CommentList() {
   const { comments } = useComments();
+  const sortedComments = [...comments].sort((a, b) => b.score - a.score);
 
   return (
     <div className="comment-list">
-      {comments.map((comment) => (
+      {sortedComments.map((comment) => (
         <Comment
           key={comment.id}
           comment={comment}
