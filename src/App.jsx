@@ -5,16 +5,6 @@ import CommentInput from "./components/CommentInput";
 import { CommentsContext } from "./context/CommentsContext";
 
 function App() {
-  const value = {
-    currentUser: data.currentUser,
-    comments: data.comments,
-    addComment,
-    addReply,
-    updateScore,
-    updateComment,
-    deleteComment,
-  };
-
   const [data, setData] = useState(() => {
     try {
       const stored = localStorage.getItem("comments-app");
@@ -148,6 +138,16 @@ function App() {
       ...prev,
       comments: deleteFromTree(prev.comments),
     }));
+  };
+
+  const value = {
+    currentUser: data.currentUser,
+    comments: data.comments,
+    addComment,
+    addReply,
+    updateScore,
+    updateComment,
+    deleteComment,
   };
 
   return (
