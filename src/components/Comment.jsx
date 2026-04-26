@@ -18,7 +18,10 @@ function Comment({ comment }) {
 
   return (
     <>
-      <div className="comment">
+      <div
+        className="comment"
+        data-testid={`comment-${comment.id}`}
+      >
         <div className="header">
           <img
             src={user.image.png}
@@ -87,7 +90,10 @@ function Comment({ comment }) {
                     src="/images/icon-delete.svg"
                     alt="delete"
                   />
-                  <button onClick={() => setIsDeleting(true)}>
+                  <button
+                    aria-label="Delete"
+                    onClick={() => setIsDeleting(true)}
+                  >
                     <span className="delete-btn">Delete</span>
                   </button>
                 </div>
