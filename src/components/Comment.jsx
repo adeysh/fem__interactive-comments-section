@@ -34,7 +34,6 @@ function Comment({ comment }) {
         {isEditing ? (
           <CommentInput
             key={comment.id}
-            currentUser={currentUser}
             initialValue={content}
             buttonLabel="UPDATE"
             onSubmit={(text) => {
@@ -119,7 +118,6 @@ function Comment({ comment }) {
 
         {isReplying && (
           <CommentInput
-            currentUser={currentUser}
             onSubmit={(text) => {
               addReply(comment.id, text, user.username);
               setIsReplying(false);
@@ -127,16 +125,7 @@ function Comment({ comment }) {
           />
         )}
       </div>
-      {replies.length > 0 && (
-        <ReplyList
-          replies={replies}
-          currentUser={currentUser}
-          addReply={addReply}
-          updateScore={updateScore}
-          updateComment={updateComment}
-          deleteComment={deleteComment}
-        />
-      )}
+      {replies.length > 0 && <ReplyList replies={replies} />}
 
       {/* MODAL */}
       {isDeleting && (
