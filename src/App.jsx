@@ -2,8 +2,19 @@ import { useState, useEffect } from "react";
 import { initialData } from "./data/data";
 import CommentList from "./components/CommentList";
 import CommentInput from "./components/CommentInput";
+import { CommentsContext } from "./context/CommentsContext";
 
 function App() {
+  const value = {
+    currentUser: data.currentUser,
+    comments: data.comments,
+    addComment,
+    addReply,
+    updateScore,
+    updateComment,
+    deleteComment,
+  };
+
   const [data, setData] = useState(() => {
     try {
       const stored = localStorage.getItem("comments-app");
@@ -140,21 +151,12 @@ function App() {
   };
 
   return (
-    <main className="app">
-      <CommentList
-        comments={data.comments}
-        currentUser={data.currentUser}
-        addReply={addReply}
-        updateScore={updateScore}
-        updateComment={updateComment}
-        deleteComment={deleteComment}
-      />
-
-      <CommentInput
-        currentUser={data.currentUser}
-        onSubmit={addComment}
-      />
-    </main>
+    <CommentsContext.Provider value={value}>
+      <main className="app">
+        <CommentList />
+        <CommentInput onSubmit={addComment} />
+      </main>
+    </CommentsContext.Provider>
   );
 }
 

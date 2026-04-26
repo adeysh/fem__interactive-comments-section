@@ -1,12 +1,9 @@
+import { useComments } from "../context/CommentsContext";
 import { useState } from "react";
 
-function CommentInput({
-  currentUser,
-  onSubmit,
-  initialValue = "",
-  buttonLabel = "SEND",
-}) {
+function CommentInput({ onSubmit, initialValue = "", buttonLabel = "SEND" }) {
   const [text, setText] = useState(initialValue);
+  const { currentUser } = useComments();
 
   const handleSubmit = () => {
     if (!text.trim()) return;

@@ -3,16 +3,12 @@ import ReplyList from "./ReplyList";
 import CommentInput from "./CommentInput";
 import DeleteModal from "./DeleteModal";
 import { timeAgo } from "../utils/timeAgo";
+import { useComments } from "../context/CommentsContext";
 
-function Comment({
-  comment,
-  currentUser,
-  addReply,
-  updateScore,
-  updateComment,
-  deleteComment,
-}) {
+function Comment({ comment }) {
   const { content, createdAt, score, user, replies = [] } = comment;
+  const { currentUser, addReply, updateScore, updateComment, deleteComment } =
+    useComments();
 
   const [isReplying, setIsReplying] = useState(false);
   const [isEditing, setIsEditing] = useState(false);

@@ -1,24 +1,15 @@
+import { useComments } from "../context/CommentsContext";
 import Comment from "./Comment";
 
-function CommentList({
-  comments,
-  currentUser,
-  addReply,
-  updateScore,
-  updateComment,
-  deleteComment,
-}) {
+function CommentList() {
+  const { comments } = useComments();
+
   return (
     <div className="comment-list">
       {comments.map((comment) => (
         <Comment
           key={comment.id}
           comment={comment}
-          currentUser={currentUser}
-          addReply={addReply}
-          updateScore={updateScore}
-          updateComment={updateComment}
-          deleteComment={deleteComment}
         />
       ))}
     </div>

@@ -1,13 +1,6 @@
 import Comment from "./Comment";
 
-function ReplyList({
-  replies,
-  currentUser,
-  addReply,
-  updateScore,
-  updateComment,
-  deleteComment,
-}) {
+function ReplyList({ replies }) {
   return (
     <div className="replies-container">
       <div className="replies-line" />
@@ -17,11 +10,6 @@ function ReplyList({
           <Comment
             key={reply.id}
             comment={reply}
-            currentUser={currentUser}
-            addReply={addReply}
-            updateScore={updateScore}
-            updateComment={updateComment}
-            deleteComment={deleteComment}
           />
         ))}
       </div>
